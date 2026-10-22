@@ -1,0 +1,411 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/fae557c9005ff7b0331311af/w/be8a734b1571bb0bcba92153/e/7775d14126666ed9f4436028 -->
+<robot name="C:\Users\utente\Downloads\onshape-to-robot-1.0.9\my-robot">
+
+<!--  We're not interested in forearm and wrist. We will consider starting from the palm-->
+
+  <!-- Link forearm -->
+  <link name="forearm">
+    <inertial>
+      <origin xyz="0.0243108 0.000675977 -0.13906" rpy="0 0 0"/>
+      <mass value="2.77213"/>
+      <inertia ixx="0.0449862" ixy="-3.94708e-05" ixz="0.00849892" iyy="0.047268" iyz="0.000189714" izz="0.00486547"/>
+    </inertial>
+    <!-- Part forearm -->
+    <visual>
+      <origin xyz="-3.12737e-07 -5.05228e-07 4.84647e-05" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets\forearm_left.stl"/>
+      </geometry>
+      <material name="forearm_material">
+        <color rgba="0.917647 0.917647 0.917647 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-3.12737e-07 -5.05228e-07 4.84647e-05" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://assets\forearm_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link wrist_base -->
+  <link name="wrist_base">
+    <inertial>
+      <origin xyz="0.000404149 0.000413782 -0.023247" rpy="0 0 0"/>
+      <mass value="0.108026"/>
+      <inertia ixx="3.50208e-05" ixy="5.28829e-07" ixz="5.08175e-07" iyy="4.51549e-05" iyz="2.49306e-07" izz="3.74192e-05"/>
+    </inertial>
+    <!-- Part wrist_base -->
+    <visual>
+      <origin xyz="-4.58413e-05 0.000583611 0.12865" rpy="-3.14159 -2.22261e-18 0"/>
+      <geometry>
+        <mesh filename="package://assets\wrist_base_left.stl"/>
+      </geometry>
+      <material name="wrist_base_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-4.58413e-05 0.000583611 0.12865" rpy="-3.14159 -2.22261e-18 0"/>
+      <geometry>
+        <mesh filename="package://assets\wrist_base_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <!-- business starts here-->
+
+  <!-- Link palm -->
+  <link name="palm">
+    <inertial>
+      <origin xyz="0.0415768 -0.00283192 0.00443117" rpy="0 0 0"/>
+      <mass value="0.325869"/>
+      <inertia ixx="0.00019279" ixy="-1.47238e-05" ixz="-4.62061e-06" iyy="0.000347165" iyz="1.72575e-05" izz="0.000253818"/>
+    </inertial>
+    
+    <!-- Part palm -->
+    <visual>
+      <origin xyz="-0.16003 0.00048353 -0.000148182" rpy="-3.14159 -1.57039 -8.92251e-29"/>
+      <geometry>
+        <mesh filename="package://assets\palm_left.stl"/>
+      </geometry>
+      <material name="palm_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.16003 0.00048353 -0.000148182" rpy="-3.14159 -1.57039 -8.92251e-29"/>
+      <geometry>
+        <mesh filename="package://assets\palm_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+
+
+  <!-- xxxx THUMB xxxx -->
+
+  <!-- Link thumb_base -->
+  <link name="thumb_base">
+    <inertial>
+      <origin xyz="0.00462421 0.0125186 0.00387623" rpy="0 0 0"/>
+      <mass value="0.0395128"/>
+      <inertia ixx="2.03749e-05" ixy="-4.46081e-07" ixz="-1.96707e-07" iyy="5.91671e-06" iyz="-4.34435e-06" izz="1.74179e-05"/>
+    </inertial>
+    <!-- Part thumb_tip -->
+    <visual>
+      <origin xyz="0.047794 -0.0882726 -0.179144" rpy="-0.262777 -0.473324 -0.103684"/>
+      <geometry>
+        <mesh filename="package://assets\thumb_top_left.stl"/>
+      </geometry>
+      <material name="thumb_tip_material">
+        <color rgba="0.647059 0.647059 0.647059 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.047794 -0.0882726 -0.179144" rpy="-0.262777 -0.473324 -0.103684"/>
+      <geometry>
+        <mesh filename="package://assets\thumb_top_left.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part thumb_base -->
+    <visual>
+      <origin xyz="0.0477941 -0.0882727 -0.179144" rpy="-0.262777 -0.473324 -0.103684"/>
+      <geometry>
+        <mesh filename="package://assets\thumb_base_left.stl"/>
+      </geometry>
+      <material name="thumb_base_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0477941 -0.0882727 -0.179144" rpy="-0.262777 -0.473324 -0.103684"/>
+      <geometry>
+        <mesh filename="package://assets\thumb_base_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from palm to thumb_base -->
+  <joint name="thumb_bottom_wheel" type="continuous">   <!-- This origin becomes my base reference system!!!! the joint is the base of the thumb!-->
+    <origin xyz="0.0404268 -0.0313946 0.0309903" rpy="-0.000230913 -1.09786 -2.87861"/>
+    <parent link="palm"/>
+    <child link="thumb_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+
+
+  <!-- Link index_base -->
+  <link name="index_base">
+    <inertial>
+      <origin xyz="-0.0047802 -0.0127708 0.00434841" rpy="0 0 0"/>
+      <mass value="0.00681618"/>
+      <inertia ixx="6.17285e-07" ixy="-2.08548e-07" ixz="6.03574e-10" iyy="4.81978e-07" iyz="7.27366e-10" izz="7.58637e-07"/>
+    </inertial>
+    <!-- Part index_base -->
+    <visual>
+      <origin xyz="0.0941782 0.236525 -0.052413" rpy="1.14332 -1.28519 1.65334e-17"/>
+      <geometry>
+        <mesh filename="package://assets\index_base_left.stl"/>
+      </geometry>
+      <material name="index_base_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0941782 0.236525 -0.052413" rpy="1.14332 -1.28519 1.65334e-17"/>
+      <geometry>
+        <mesh filename="package://assets\index_base_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link index_top -->
+  <link name="index_top">
+    <inertial>
+      <origin xyz="-0.0126048 -0.013084 0.00386322" rpy="0 0 0"/>
+      <mass value="0.00457044"/>
+      <inertia ixx="3.69539e-07" ixy="-2.84744e-07" ixz="-1.7378e-09" iyy="4.98673e-07" iyz="-1.24335e-10" izz="6.75093e-07"/>
+    </inertial>
+    <!-- Part index_top -->
+    <visual>
+      <origin xyz="0.107465 0.264052 -0.052913" rpy="1.14332 -1.28519 3.38291e-17"/>
+      <geometry>
+        <mesh filename="package://assets\index_top_left.stl"/>
+      </geometry>
+      <material name="index_top_material">
+        <color rgba="0.768627 0.886275 0.952941 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.107465 0.264052 -0.052913" rpy="1.14332 -1.28519 3.38291e-17"/>
+      <geometry>
+        <mesh filename="package://assets\index_top_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from index_base to index_top -->
+  <joint name="index_top_wheel" type="continuous">
+    <origin xyz="-0.0132864 -0.0275267 0.00065" rpy="-1.01133e-17 6.17104e-17 1.95878e-17"/>
+    <parent link="index_base"/>
+    <child link="index_top"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from palm to index_base -->
+  <joint name="index_bottom_wheel" type="continuous">
+    <origin xyz="0.0988401 0.00279483 0.0237906" rpy="0.000383906 -0.285778 1.99817"/>
+    <parent link="palm"/>
+    <child link="index_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link middle_base -->
+  <link name="middle_base">
+    <inertial>
+      <origin xyz="-0.0110064 -0.00978906 0.00435585" rpy="0 0 0"/>
+      <mass value="0.00795984"/>
+      <inertia ixx="5.33163e-07" ixy="-2.37976e-07" ixz="7.89846e-10" iyy="8.48665e-07" iyz="3.67832e-10" izz="9.6858e-07"/>
+    </inertial>
+    <!-- Part middle_base -->
+    <visual>
+      <origin xyz="0.176235 0.18857 -0.0315648" rpy="0.78071 -1.40061 -7.1056e-17"/>
+      <geometry>
+        <mesh filename="package://assets\middle_base_left.stl"/>
+      </geometry>
+      <material name="middle_base_material">
+        <color rgba="0.498039 0.498039 0.498039 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.176235 0.18857 -0.0315648" rpy="0.78071 -1.40061 -7.1056e-17"/>
+      <geometry>
+        <mesh filename="package://assets\middle_base_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link middle_top -->
+  <link name="middle_top">
+    <inertial>
+      <origin xyz="-0.0179636 -0.0103498 0.00384192" rpy="0 0 0"/>
+      <mass value="0.00561792"/>
+      <inertia ixx="3.20822e-07" ixy="-3.47392e-07" ixz="2.70621e-10" iyy="9.81934e-07" iyz="7.85827e-10" izz="1.07434e-06"/>
+    </inertial>
+    <!-- Part middle_top -->
+    <visual>
+      <origin xyz="0.202768 0.209119 -0.0320648" rpy="0.78071 -1.40061 -6.1872e-17"/>
+      <geometry>
+        <mesh filename="package://assets\middle_top_left.stl"/>
+      </geometry>
+      <material name="middle_top_material">
+        <color rgba="0.768627 0.886275 0.952941 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.202768 0.209119 -0.0320648" rpy="0.78071 -1.40061 -6.1872e-17"/>
+      <geometry>
+        <mesh filename="package://assets\middle_top_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from middle_base to middle_top -->
+  <joint name="middle_top_wheel" type="continuous">
+    <origin xyz="-0.0265331 -0.0205485 0.00065" rpy="-2.14439e-18 -3.12613e-17 -3.84902e-17"/>
+    <parent link="middle_base"/>
+    <child link="middle_top"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from palm to middle_base -->
+  <joint name="middle_bottom_wheel" type="continuous">
+    <origin xyz="0.099932 0.00838529 0.00149967" rpy="0.000289052 -0.170476 2.36083"/>
+    <parent link="palm"/>
+    <child link="middle_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link ring_base -->
+  <link name="ring_base">
+    <inertial>
+      <origin xyz="-0.0136205 0.000653363 0.00434841" rpy="0 0 0"/>
+      <mass value="0.00681618"/>
+      <inertia ixx="3.73336e-07" ixy="1.30342e-07" ixz="8.76509e-10" iyy="7.25926e-07" iyz="-3.5269e-10" izz="7.58636e-07"/>
+    </inertial>
+    <!-- Part ring_base -->
+    <visual>
+      <origin xyz="0.257876 0.000523624 -0.00996143" rpy="-0.0193954 -1.449 -8.65366e-19"/>
+      <geometry>
+        <mesh filename="package://assets\ring_base_left.stl"/>
+      </geometry>
+      <material name="ring_base_material">
+        <color rgba="0.972549 0.529412 0.00392157 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.257876 0.000523624 -0.00996143" rpy="-0.0193954 -1.449 -8.65366e-19"/>
+      <geometry>
+        <mesh filename="package://assets\ring_base_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link ring_top -->
+  <link name="ring_top">
+    <inertial>
+      <origin xyz="-0.0177467 0.00389022 0.00386328" rpy="0 0 0"/>
+      <mass value="0.00457051"/>
+      <inertia ixx="2.09275e-07" ixy="1.86273e-07" ixz="-1.01256e-09" iyy="6.58956e-07" iyz="1.41437e-09" izz="6.75102e-07"/>
+    </inertial>
+    <!-- Part ring_top -->
+    <visual>
+      <origin xyz="0.288145 -0.0037253 -0.0104614" rpy="-0.0193954 -1.449 -6.35333e-18"/>
+      <geometry>
+        <mesh filename="package://assets\ring_top_left.stl"/>
+      </geometry>
+      <material name="ring_top_material">
+        <color rgba="0.647059 0.647059 0.647059 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.288145 -0.0037253 -0.0104614" rpy="-0.0193954 -1.449 -6.35333e-18"/>
+      <geometry>
+        <mesh filename="package://assets\ring_top_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from ring_base to ring_top -->
+  <joint name="ring_top_wheel" type="continuous">
+    <origin xyz="-0.0302687 0.00424892 0.00065" rpy="-4.09761e-19 -1.43594e-17 -3.1697e-18"/>
+    <parent link="ring_base"/>
+    <child link="ring_top"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from palm to ring_base -->
+  <joint name="ring_bottom_wheel" type="continuous">
+    <origin xyz="0.0971148 0.00599547 -0.0213977" rpy="-7.90893e-06 -0.122202 -3.1222"/>
+    <parent link="palm"/>
+    <child link="ring_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Link little_base -->
+  <link name="little_base">
+    <inertial>
+      <origin xyz="-0.0072188 0.00925825 0.00385269" rpy="0 0 0"/>
+      <mass value="0.00405569"/>
+      <inertia ixx="3.07041e-07" ixy="6.72709e-08" ixz="1.42723e-11" iyy="1.66999e-07" iyz="1.74663e-10" izz="3.28821e-07"/>
+    </inertial>
+    <!-- Part little_base -->
+    <visual>
+      <origin xyz="0.111372 -0.220249 0.0118265" rpy="-1.11958 -1.29591 -5.3674e-17"/>
+      <geometry>
+        <mesh filename="package://assets\little_base_left.stl"/>
+      </geometry>
+      <material name="little_base_material">
+        <color rgba="0.647059 0.647059 0.647059 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.111372 -0.220249 0.0118265" rpy="-1.11958 -1.29591 -5.3674e-17"/>
+      <geometry>
+        <mesh filename="package://assets\little_base_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link little_top -->
+  <link name="little_top">
+    <inertial>
+      <origin xyz="-0.00398231 0.0147812 0.0035591" rpy="0 0 0"/>
+      <mass value="0.00289371"/>
+      <inertia ixx="3.35698e-07" ixy="4.33904e-08" ixz="4.33698e-10" iyy="7.57789e-08" iyz="-2.60523e-10" izz="3.16705e-07"/>
+    </inertial>
+    <!-- Part little_top -->
+    <visual>
+      <origin xyz="0.12648 -0.242021 0.0115765" rpy="-1.11958 -1.29591 2.40779e-17"/>
+      <geometry>
+        <mesh filename="package://assets\little_top_left.stl"/>
+      </geometry>
+      <material name="little_top_material">
+        <color rgba="0.615686 0.811765 0.929412 1.0"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.12648 -0.242021 0.0115765" rpy="-1.11958 -1.29591 2.40779e-17"/>
+      <geometry>
+        <mesh filename="package://assets\little_top_left.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from little_base to little_top -->
+  <joint name="little_top_wheel" type="continuous">
+    <origin xyz="-0.0151077 0.0217717 0.00045" rpy="-5.97594e-17 -6.75862e-17 -0.0910995"/>
+    <parent link="little_base"/>
+    <child link="little_top"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from palm to little_base -->
+  <joint name="little_bottom_wheel" type="continuous">
+    <origin xyz="0.0835927 -0.00179535 -0.0411138" rpy="-0.0359142 -0.272766 -1.89072"/>
+    <parent link="palm"/>
+    <child link="little_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from wrist_base to palm -->
+  <joint name="wrist_flex_wheel" type="continuous">
+    <origin xyz="0.000167114 0.000100081 -0.0313802" rpy="-5.35783e-09 1.57039 -5.35783e-09"/>
+    <parent link="wrist_base"/>
+    <child link="palm"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+  <!-- Joint from forearm to wrist_base -->
+  <joint name="wrist_base_wheel" type="continuous">
+    <origin xyz="0.000140248 0.000255843 0.128698" rpy="3.14159 -2.22261e-18 3.37367e-36"/>
+    <parent link="forearm"/>
+    <child link="wrist_base"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10" velocity="10"/>
+  </joint>
+</robot>
